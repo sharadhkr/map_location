@@ -1,6 +1,6 @@
 const socket = io();
 
-// Initialize the map
+
 const map = L.map('map').setView([0, 0], 10);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', { foo: 'bar', attribution: 'hii' }).addTo(map);
 
@@ -15,7 +15,7 @@ socket.on("initial-users", (users) => {
     }
 });
 
-// Handle new location updates
+
 socket.on("recive-location", (data) => {
     const { id, latitude, longitude } = data;
     if (markers[id]) {
@@ -25,7 +25,6 @@ socket.on("recive-location", (data) => {
     }
 });
 
-// Handle user disconnection
 socket.on("user-dissconenct", (id) => {
     if (markers[id]) {
         map.removeLayer(markers[id]);
@@ -33,7 +32,6 @@ socket.on("user-dissconenct", (id) => {
     }
 });
 
-// Send user's location to the server
 if (navigator.geolocation) {
     navigator.geolocation.watchPosition((position) => {
         const { latitude, longitude } = position.coords;
